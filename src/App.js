@@ -12,15 +12,18 @@ import { padding } from '@mui/system';
 function App() {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState('');
+  const [image, setImage] = React.useState({});
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false)
     setName('')
+    setImage({})
   };
   const submitForm = () => {
     //send to s3
     setOpen(false)
     setName('')
+    setImage({})
   }
   return (
     <div>
@@ -44,7 +47,8 @@ function App() {
           }}>
          <h1> Add employee</h1>
          <input type='text' value={name} onChange={(e)=>setName(e.target.value)}/>
-         <input type='file' style={{margin:'10px 0px'}}/>
+         <input type='file' onChange={(e)=>{setImage(URL.createObjectURL(e.target.files[0]))}} style={{margin:'10px 0px'}}/>
+         <img src={image} style={{height:'100px',width:'100px'}} alt="img"/>
          <div>
             <button onClick={submitForm} style={{width:'40px',margin:'0px 10px 0px 0px'}}>Add</button>
             <button onClick={handleClose} style={{width:'60px'}}>Cancel</button>
